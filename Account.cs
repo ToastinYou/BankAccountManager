@@ -31,7 +31,7 @@
 
         private void SetAcctNum()
         {
-            this.acctNum = new Random().Next().ToString(); ;
+            this.acctNum = new Random().Next().ToString();
         }
 
         public void SetBalance(int balance)
