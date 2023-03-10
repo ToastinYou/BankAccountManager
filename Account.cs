@@ -29,9 +29,26 @@
             this.accountType = accountType;
         }
 
+        public void SetPerson(Person person) => this.person = person;
+
+        public string GetAcctNum() => acctNum;
+
         private void SetAcctNum()
         {
-            this.acctNum = new Random().Next().ToString();
+            acctNum = new Random().Next().ToString();
+
+            // prevents duplicate acctNum's
+            foreach (var account in Start.masterAccounts)
+            {
+                if (account.GetAcctNum() == acctNum)
+                {
+                    Console.WriteLine("Duplicate account number identified, trying again..");
+                    SetAcctNum();
+                    return;
+                }
+            }
+
+            Start.masterAccounts.Add(this);
         }
 
         public void SetBalance(int balance)
