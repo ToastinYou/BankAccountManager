@@ -19,6 +19,12 @@
 
             switch (cmd)
             {
+                case "new":
+                    NewPerson();
+                    break;
+                case "open":
+                    OpenAccount();
+                    break;
                 case "help":
                     Console.WriteLine("Requesting help..");
                     break;
@@ -31,6 +37,33 @@
             }
 
             RequestCmd();
+        }
+
+        private static void NewPerson()
+        {
+            Console.WriteLine("Enter first name.");
+            var firstName = Console.ReadLine();
+
+            Console.WriteLine("Enter last name.");
+            var lastName = Console.ReadLine();
+
+            Console.WriteLine("Enter date of birth.");
+            var dob = Console.ReadLine();
+
+            Console.WriteLine("Enter driver's license number.");
+            var dlNum = Console.ReadLine();
+
+            // TODO: safety net for nullable objs
+            Person p = new Person(firstName, lastName, dob, dlNum);
+
+            Console.WriteLine($"Account opened with the following information: {firstName} | {lastName} | {dob} | {dlNum}.");
+        }
+
+        private static void OpenAccount()
+        {
+            Console.WriteLine("Initial deposit amount:");
+            var balance = int.Parse(Console.ReadLine());
+            Account a = new Account(null, balance, Account.AccountType.Checking);
         }
     }
 }
