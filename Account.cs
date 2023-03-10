@@ -27,6 +27,8 @@
             SetAcctNum();
             this.balance = balance;
             this.accountType = accountType;
+
+            Start.masterAccounts.Add(this);
         }
 
         public void SetPerson(Person person) => this.person = person;
@@ -47,8 +49,6 @@
                     return;
                 }
             }
-
-            Start.masterAccounts.Add(this);
         }
 
         public void SetBalance(int balance) => this.balance = balance;
