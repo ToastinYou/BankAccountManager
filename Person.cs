@@ -26,6 +26,20 @@
             this.lastName = lastName;
         }
 
+        public void TransferAcct(string acctNum)
+        {
+            foreach (var account in Start.masterAccounts)
+            {
+                if (account.GetAcctNum() == acctNum)
+                {
+                    account.SetPerson(this);
+                    break;
+                }
+            }
+
+            Console.WriteLine($"Account #{acctNum} is now owned by {firstName} {lastName}.");
+        }
+
         // this probably is not needed... Account obj requires a Person obj, so why would we have an Account obj with no Person obj attached?
         //public void AddAcct(string acctNum)
         //{
@@ -41,20 +55,6 @@
         //    accounts.Add(acctNum);
         //    Console.WriteLine($"Account #{acctNum} is now owned by {firstName} {lastName}.");
         //}
-
-        public void TransferAcct(string acctNum)
-        {
-            foreach (var account in Start.masterAccounts)
-            {
-                if (account.GetAcctNum() == acctNum)
-                {
-                    account.SetPerson(this);
-                    break;
-                }
-            }
-
-            Console.WriteLine($"Account #{acctNum} is now owned by {firstName} {lastName}.");
-        }
 
         // necessary?? why would no one own the account? .. should be closed if no one owns it
         //public void RemoveAcct(string acctNum)

@@ -51,10 +51,7 @@
             Start.masterAccounts.Add(this);
         }
 
-        public void SetBalance(int balance)
-        {
-            this.balance = balance;
-        }
+        public void SetBalance(int balance) => this.balance = balance;
 
         private bool MinBal(int bal) => bal >= minBal;
     }
