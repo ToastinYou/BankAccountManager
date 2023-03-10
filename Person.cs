@@ -14,6 +14,8 @@
             this.lastName = lastName;
             this.dob = dob;
             this.dlNum = dlNum;
+
+            Start.masterPersons.Add(this);
         }
 
         public void SetFirstName(string firstName)
