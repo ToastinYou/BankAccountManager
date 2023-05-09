@@ -10,6 +10,11 @@
 
         public Person(string firstName, string lastName, string dob, string dlNum)
         {
+            if (GetPerson(dlNum) != null)
+            {
+                return;
+            }
+
             this.firstName = firstName;
             this.lastName = lastName;
             this.dob = dob;
@@ -40,6 +45,19 @@
             }
 
             Console.WriteLine($"Account #{acctNum} is now owned by {firstName} {lastName}.");
+        }
+
+        private Person? GetPerson(string dlNum)
+        {
+            try
+            {
+                return Start.masterPersons.Where(p => p.dlNum == dlNum).First();
+            }
+            catch (Exception e)
+            {
+                Start.DebugLog(e.ToString());
+                return null;
+            }
         }
 
         // this probably is not needed... Account obj requires a Person obj, so why would we have an Account obj with no Person obj attached?

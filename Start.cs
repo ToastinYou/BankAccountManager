@@ -92,7 +92,7 @@ namespace Bank
             }
         }
 
-        private static void DebugLog(string msg)
+        public static void DebugLog(string msg)
         {
             #if DEBUG
                 Console.WriteLine(msg);
