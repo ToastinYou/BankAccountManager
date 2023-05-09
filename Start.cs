@@ -1,4 +1,6 @@
-﻿namespace Bank
+﻿using System;
+
+namespace Bank
 {
     internal class Start
     {
@@ -15,7 +17,7 @@
         private static void RequestCmd()
         {
             Console.WriteLine("What would you like to do today?");
-            string cmd = Console.ReadLine();
+            string cmd = GetInput();
 
             switch (cmd)
             {
@@ -26,44 +28,75 @@
                     OpenAccount();
                     break;
                 case "help":
-                    Console.WriteLine("Requesting help..");
+                    Console.WriteLine("Requesting help ...");
                     break;
                 case "close":
                     Console.WriteLine("Goodbye.");
                     return;
                 default:
-                    Console.WriteLine("Invalid command, try again..");
+                    Console.WriteLine("Invalid command, please try again ...");
                     break;
             }
 
             RequestCmd();
         }
 
-        private static void NewPerson()
+        private static Person NewPerson()
         {
-            Console.WriteLine("Enter first name.");
-            var firstName = Console.ReadLine();
+            Console.WriteLine("Enter first name ...");
+            string firstName = GetInput();
 
-            Console.WriteLine("Enter last name.");
-            var lastName = Console.ReadLine();
+            Console.WriteLine("Enter last name ...");
+            string lastName = GetInput();
 
-            Console.WriteLine("Enter date of birth.");
-            var dob = Console.ReadLine();
+            Console.WriteLine("Enter date of birth ...");
+            string dob = GetInput();
 
-            Console.WriteLine("Enter driver's license number.");
-            var dlNum = Console.ReadLine();
+            Console.WriteLine("Enter driver's license number ...");
+            string dlNum = GetInput();
 
-            // TODO: safety net for nullable objs
-            Person p = new Person(firstName, lastName, dob, dlNum);
-
-            Console.WriteLine($"Account opened with the following information: {firstName} | {lastName} | {dob} | {dlNum}.");
+            return new Person(firstName, lastName, dob, dlNum);
         }
 
         private static void OpenAccount()
         {
             Console.WriteLine("Initial deposit amount:");
-            var balance = int.Parse(Console.ReadLine());
-            Account a = new Account(null, balance, Account.AccountType.Checking);
+            int balance = int.Parse(GetInput());
+
+            Person p = NewPerson();
+            Account a = new Account(p, balance, Account.AccountType.Checking);
+
+            DebugLog($"Account opened with the following information: {p.firstName} | {p.lastName} | {p.dob} | {p.dlNum}.");
+        }
+
+        private static string GetInput()
+        {
+            try 
+            { 
+                string? input = Console.ReadLine();
+
+                if (input != null)
+                {
+                    return input;
+                }
+                else
+                {
+                    throw new NullReferenceException();
+                }
+            }
+            catch (Exception e)
+            {
+                DebugLog(e.ToString());
+                Console.WriteLine("Invalid input, please try again.");
+                return GetInput();
+            }
+        }
+
+        private static void DebugLog(string msg)
+        {
+            #if DEBUG
+                Console.WriteLine(msg);
+            #endif
         }
     }
 }
